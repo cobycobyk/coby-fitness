@@ -4,18 +4,20 @@ import ActionRow from '../components/ActionRow';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
+import useRevenueCat from '../hooks/useRevenueCat';
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Paywall">
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
+  const { currentOffering, customerInfo, isProMember } = useRevenueCat();
 
   return (
     <SafeAreaView className='flex-1 bg-gray-100 relative'>
       <ScrollView>
         <TouchableOpacity onPress={() => navigation.navigate("Paywall")} className='absolute z-50 top-5 right-10 items-center'>
           <Ionicons name="person-circle" size={30} color="#FF6F00" />
-          <Text className='text-center text-[#FF6F00]'>Upgrade</Text>
+          <Text className='text-center text-[#FF6F00]'>{isProMember ? "PRO" : "Upgrade"}</Text>
         </TouchableOpacity>
         <View className='flex items-center justify-center mx-6'>
           <Image
